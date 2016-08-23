@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823143335) do
+ActiveRecord::Schema.define(version: 20160823145947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20160823143335) do
     t.float    "one_rm_bench_press"
     t.float    "one_rm_deadlift"
     t.float    "one_rm_overhead_press"
+    t.string   "person_name"
+    t.date     "start_date"
   end
 
 end

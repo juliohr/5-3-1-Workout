@@ -14,6 +14,8 @@
   <div class="actions">
     <h3>Type your 1RM for the following exercises</h3>
     <%= simple_form_for @program do |f| %>
+    <%= f.input :person_name, inline_label: 'Monster Name' %>
+    <%= f.input :start_date, inline_label: 'Start Date' %>
     <%= f.input :one_rm_squat, inline_label: 'Squat' %>
     <%= f.input :one_rm_bench_press, inline_label: 'Bench Press' %>
     <%= f.input :one_rm_deadlift, inline_label: 'Deadlift' %>
