@@ -24,7 +24,7 @@ class ProgramsController < ApplicationController
   # POST /programs
   # POST /programs.json
   def create
-    @program = Program.new(program_params)
+    @program = Program.new()
 
     respond_to do |format|
       if @program.save
