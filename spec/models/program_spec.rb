@@ -30,6 +30,6 @@ RSpec.describe Program, type: :model do
   end
 
   it "is not valid without a cycle" do
-    expect(FactoryGirl.build(:program, cycle: nil)).to_not be_valid 
+    expect(FactoryGirl.build(:program)).to_not be_valid 
   end
 end
