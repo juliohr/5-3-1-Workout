@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824190355) do
+ActiveRecord::Schema.define(version: 20160824212422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,19 +18,25 @@ ActiveRecord::Schema.define(version: 20160824190355) do
   create_table "cycles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "program_id"
+    t.index ["program_id"], name: "index_cycles_on_program_id", using: :btree
   end
 
   create_table "exercise_sets", force: :cascade do |t|
     t.integer  "weight"
     t.integer  "reps"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "exercise_id"
+    t.index ["exercise_id"], name: "index_exercise_sets_on_exercise_id", using: :btree
   end
 
   create_table "exercises", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "workout_id"
+    t.index ["workout_id"], name: "index_exercises_on_workout_id", using: :btree
   end
 
   create_table "programs", force: :cascade do |t|
@@ -48,6 +54,15 @@ ActiveRecord::Schema.define(version: 20160824190355) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "cycle_id"
+    t.integer  "program_id"
+    t.index ["cycle_id"], name: "index_workouts_on_cycle_id", using: :btree
+    t.index ["program_id"], name: "index_workouts_on_program_id", using: :btree
   end
 
+  add_foreign_key "cycles", "programs"
+  add_foreign_key "exercise_sets", "exercises"
+  add_foreign_key "exercises", "workouts"
+  add_foreign_key "workouts", "cycles"
+  add_foreign_key "workouts", "programs"
 end
