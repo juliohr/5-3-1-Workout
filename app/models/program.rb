@@ -8,4 +8,5 @@ class Program < ApplicationRecord
 	:one_rm_deadlift,
 	:one_rm_overhead_press,
 	:start_date
+  :cycles
 end

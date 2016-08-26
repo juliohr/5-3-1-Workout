@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Program, type: :model do
+  it { is_expected.to have_many(:cycles) }
+
   it "is valid with valid attributes" do
   	expect(FactoryGirl.build(:program)).to be_valid
   end
@@ -27,9 +29,5 @@ RSpec.describe Program, type: :model do
 
   it "is not valid without a start_date" do
     expect(FactoryGirl.build(:program, start_date: nil)).to_not be_valid 
-  end
-
-  it "is not valid without a cycle" do
-    expect(FactoryGirl.build(:program)).to_not be_valid 
   end
 end
