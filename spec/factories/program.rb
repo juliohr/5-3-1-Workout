@@ -8,6 +8,5 @@ FactoryGirl.define do
   	one_rm_deadlift { Faker::Number.between(50, 150) }
   	one_rm_overhead_press { Faker::Number.between(50, 150) }
   	start_date { Faker::Date.between(2.days.ago, Date.today) }
-  	cycle
   end
 end
