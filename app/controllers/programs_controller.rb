@@ -23,17 +23,13 @@ class ProgramsController < ApplicationController
 
   # POST /programs
   # POST /programs.json
-  def create
-    @program = Program.new()
+  def create 
+    @program = Program.new(program_params)
 
-    respond_to do |format|
-      if @program.save
-        format.html { redirect_to @program, notice: 'Program was successfully created.' }
-        format.json { render :show, status: :created, location: @program }
-      else
-        format.html { render :new }
-        format.json { render json: @program.errors, status: :unprocessable_entity }
-      end
+    if @program.save
+      redirect_to @program, notice: 'Program was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -69,6 +65,32 @@ class ProgramsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
-      params.fetch(:program, {})
+      raw_params = params.fetch(:program).permit(
+        :person_name,
+        "start_date(1i)",
+        "start_date(2i)",
+        "start_date(3i)",
+        :one_rm_squat,
+        :one_rm_bench_press,
+        :one_rm_deadlift,
+        :one_rm_overhead_press
+      )
+      parse_params(raw_params)
+    end
+
+    def parse_params(raw_params)
+      parsed_date = Date.new(
+        raw_params["start_date(1i)"].to_i,
+        raw_params["start_date(2i)"].to_i,
+        raw_params["start_date(3i)"].to_i
+      )
+      program = { 
+        person_name: raw_params[:person_name],
+        one_rm_squat: raw_params[:one_rm_squat],
+        one_rm_bench_press: raw_params[:one_rm_bench_press],
+        one_rm_deadlift: raw_params[:one_rm_deadlift],
+        one_rm_overhead_press: raw_params[:one_rm_overhead_press],
+        start_date: parsed_date
+      }
     end
 end
