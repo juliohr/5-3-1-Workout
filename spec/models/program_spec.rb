@@ -30,4 +30,26 @@ RSpec.describe Program, type: :model do
   it "is not valid without a start_date" do
     expect(FactoryGirl.build(:program, start_date: nil)).to_not be_valid 
   end
+
+  describe ".initialize_cycle" do
+    let (:program) { FactoryGirl.build(
+      :program,
+      one_rm_squat: 100,
+      one_rm_bench_press: 90,
+      one_rm_deadlift: 70,
+      one_rm_overhead_press: 60,
+      start_date: Date.new()
+    )}
+    before { program.initialize_cycle }
+
+    it { expect(program.cycles).to_not be_empty }
+
+    context "cycle number" do
+      it { expect(program.cycles.first.number).to eq(1)}
+    end
+
+    context "cycle workouts" do
+      it { expect(program.cycles.first.workouts).to eq(16)}
+    end
+  end
 end

@@ -1,5 +1,6 @@
 
 #
+host: localhost
 default: &default
   adapter: postgresql
   pool: 5

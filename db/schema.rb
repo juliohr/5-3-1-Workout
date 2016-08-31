@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830160004) do
+ActiveRecord::Schema.define(version: 20160830230727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160830160004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "program_id"
+    t.integer  "number"
     t.index ["program_id"], name: "index_cycles_on_program_id", using: :btree
   end
 
