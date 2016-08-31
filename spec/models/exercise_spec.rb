@@ -16,7 +16,7 @@ RSpec.describe Exercise, type: :model do
     context "squat" do
       describe ".exercise_sets" do
         context "cycle_week 1" do
-          let (:exercise) { FactoryGirl.build(:exercise, one_rm_max: 100, cycle_week: 1) }
+          let (:exercise) { FactoryGirl.build(:exercise, one_rm: 100, cycle_week: 1) }
           before { exercise.initialize_sets }
 
           context ".exercise_sets.size" do

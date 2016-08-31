@@ -13,15 +13,16 @@ RSpec.describe Workout, type: :model do
     expect(FactoryGirl.build(:workout, cycle_week: nil)).to_not be_valid
   end
 
-  describe ".initialize_workouts" do
-    let(:workouts) { FactoryGirl.build(
-      :workout,
-      one_rm_squat: 100,
-      one_rm_bench_press: 90,
-      one_rm_deadlift: 80,
-      one_rm_overhead_press: 70
-    )}
+  describe ".initialize_exercise" do
+    let (:workout) { FactoryGirl.build(:workout, cycle_week: 1) }
+    one_rm = 100
+    before { workout.initialize_exercise("squat", one_rm) }
 
-    before { workout.initialize_workouts }
+    context "exercises" do
+      it { expect(workout.exercises.size).to eq(1)}
+      context "exercise name" do
+        it { expect(workout.exercises.first.name).to eq("squat") }
+      end
+    end
   end
 end
