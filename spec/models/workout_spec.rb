@@ -20,8 +20,13 @@ RSpec.describe Workout, type: :model do
 
     context "exercises" do
       it { expect(workout.exercises.size).to eq(1)}
+      
       context "exercise name" do
         it { expect(workout.exercises.first.name).to eq("squat") }
+      end
+
+      context "exercise sets" do
+        it { expect(workout.exercises.first.exercise_sets.size).to eq(6) }
       end
     end
   end

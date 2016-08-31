@@ -28,9 +28,9 @@ RSpec.describe Cycle, type: :model do
 
       context "cycle week 1" do
         context "squat" do
-          subject(:exercise) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.exercises.first[:name] == "squat" }.exercises.first }
+          subject(:exercise) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.exercises.first[:name] == "squat" }.first.exercises.first }
           context "weight" do
-            it { expect(exercise.exercise_sets.first.weight).to eq(85) }
+            it { expect(exercise.exercise_sets.last.weight).to eq(85) }
           end
           context "reps" do
             it { expect(exercise.exercise_sets.first.reps).to eq(5) } 

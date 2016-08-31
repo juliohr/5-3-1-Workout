@@ -49,7 +49,7 @@ RSpec.describe Program, type: :model do
     end
 
     context "cycle workouts" do
-      it { expect(program.cycles.first.workouts).to eq(16)}
+      it { expect(program.cycles.first.workouts.size).to eq(16)}
     end
   end
 end
