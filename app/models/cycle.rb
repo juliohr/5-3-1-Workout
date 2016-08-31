@@ -8,6 +8,7 @@ class Cycle < ApplicationRecord
     cycle_weeks.each do |week|
       exercises.each do |ex|
         workout = Workout.new()
+        workout.name = ex
         workout.cycle_week = week
         workout.initialize_exercise(ex, select_one_rm(all_one_rm, ex))
         exercise = Exercise.new()
