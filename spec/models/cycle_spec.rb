@@ -287,7 +287,7 @@ RSpec.describe Cycle, type: :model do
 
     context "cycle week 2" do
       context "squat workout" do
-        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.name == "squat" } }
+        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 2 && w.name == "squat" } }
 
         it { expect(workouts.first.name).to eq("squat")}
 
@@ -350,10 +350,10 @@ RSpec.describe Cycle, type: :model do
         end
       end
 
-      context "brench press workout" do
-        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.name == "brench press" } }
-
-        it { expect(workouts.first.name).to eq("brench press")}
+      context "bench press workout" do
+        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 2 && w.name == "bench press" } }
+          
+        it { expect(workouts.first.name).to eq("bench press") }
 
         context "brench press exercise" do
           subject (:exercise) { workouts.first.exercises.first }
@@ -387,7 +387,7 @@ RSpec.describe Cycle, type: :model do
 
           context "fourth set" do
             context "weight" do
-              it { expect(exercise.exercise_sets[3].weight).to eq(63) }
+              it { expect(exercise.exercise_sets[3].weight).to eq(62) }
             end
             context "reps" do
               it { expect(exercise.exercise_sets[3].reps).to eq(3) } 
@@ -415,7 +415,7 @@ RSpec.describe Cycle, type: :model do
       end
 
       context "deadlift workout" do
-        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.name == "deadlift" } }
+        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 2 && w.name == "deadlift" } }
 
         it { expect(workouts.first.name).to eq("deadlift")}
 
@@ -479,7 +479,7 @@ RSpec.describe Cycle, type: :model do
       end
 
       context "overhead press workout" do
-        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 1 && w.name == "overhead press" } }
+        subject (:workouts) { cycle.workouts.select { |w| w[:cycle_week] == 2 && w.name == "overhead press" } }
 
         it { expect(workouts.first.name).to eq("overhead press")}
 

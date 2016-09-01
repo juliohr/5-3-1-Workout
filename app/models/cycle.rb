@@ -13,8 +13,7 @@ class Cycle < ApplicationRecord
         workout.initialize_exercise(ex, select_one_rm(all_one_rm, ex))
         exercise = Exercise.new()
         exercise.name = ex
-        exercise.one_rm = select_one_rm(all_one_rm, ex)
-        exercise.initialize_sets
+        exercise.initialize_sets(week, select_one_rm(all_one_rm, ex))
         workout.exercises << exercise
         workouts << workout
       end
