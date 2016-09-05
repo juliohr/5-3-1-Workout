@@ -38,7 +38,6 @@ RSpec.describe Program, type: :model do
       one_rm_bench_press: 90,
       one_rm_deadlift: 70,
       one_rm_overhead_press: 60,
-      start_date: Date.new()
     )}
     before { program.initialize_cycle }
 
