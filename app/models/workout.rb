@@ -1,6 +1,7 @@
 class Workout < ApplicationRecord
 	belongs_to :cycle
-	has_and_belongs_to_many :exercises
+  has_many :exercise_workouts
+	has_many :exercises, through: :exercise_workouts
   
   validates_presence_of :cycle_week
 

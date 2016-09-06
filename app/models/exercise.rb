@@ -1,6 +1,7 @@
 class Exercise < ApplicationRecord
 	validates_presence_of :name
-	has_and_belongs_to_many :workouts
+	has_many :exercise_workouts
+  has_many :workouts, through: :exercise_workouts
 	has_many :exercise_sets
 
   CYCLE_WEEK_SETS = {

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Exercise, type: :model do
-  it { is_expected.to have_and_belong_to_many(:workouts) }
+  it { is_expected.to have_many(:workouts) }
+  it { is_expected.to have_many(:exercise_workouts) }
   it { is_expected.to have_many(:exercise_sets) }
   
   it "is valid with valid attributes" do
