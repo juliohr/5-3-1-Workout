@@ -1,4 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div>Monstrão: <%= @program.person_name %></div>
+<div>Start Date: <%= @program.start_date %></div>
+
+<div> Cycle: <%= @cycle.number %></div>
+
+<table>
+<% @workouts.each do |cw, sw| %>
+  <tr>
+    <th><%= cw.to_s %></th>
+  </tr>
+  <% sw.each do |w|%>
+  <tr>
+    <td><%= w.name %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
 
 <%= link_to 'Edit', edit_program_path(@program) %> |
 <%= link_to 'Back', programs_path %>

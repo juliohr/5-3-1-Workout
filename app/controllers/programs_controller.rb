@@ -10,6 +10,8 @@ class ProgramsController < ApplicationController
   # GET /programs/1
   # GET /programs/1.json
   def show
+    @cycle = Cycle.find_by(program_id: params[:id])
+    @workouts = group_by_cycle_week(Workout.where(cycle_id: @cycle.id).all)
   end
 
   # GET /programs/new
@@ -24,8 +26,9 @@ class ProgramsController < ApplicationController
   # POST /programs
   # POST /programs.json
   def create 
-    @program = Program.new(program_params)
-
+    @program = Program.new(get_program_params)
+    @program.initialize_cycle
+    
     if @program.save
       redirect_to @program, notice: 'Program was successfully created.'
     else
@@ -64,7 +67,7 @@ class ProgramsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def program_params
+    def get_program_params
       raw_params = params.fetch(:program).permit(
         :person_name,
         "start_date(1i)",
@@ -92,5 +95,14 @@ class ProgramsController < ApplicationController
         one_rm_overhead_press: raw_params[:one_rm_overhead_press],
         start_date: parsed_date
       }
+    end
+
+    def group_by_cycle_week(workouts)
+      {
+        cw_1: workouts.select { |w| w.cycle_week == 1},
+        cw_2: workouts.select { |w| w.cycle_week == 2},
+        cw_3: workouts.select { |w| w.cycle_week == 3},
+        cw_4: workouts.select { |w| w.cycle_week == 4},
+      }    
     end
 end

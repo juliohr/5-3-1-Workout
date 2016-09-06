@@ -1,40 +1,65 @@
 require 'rails_helper'
 RSpec.describe ProgramsController, type: :controller do
 
-  let(:program) { FactoryGirl.build(:program)  }
+  let(:program) { FactoryGirl.create(:program) }
+  let(:program_2) { FactoryGirl.create(:program) }
 
-  let(:invalid_attributes) { FactoryGirl.build(:program, person_name: nil) }
+  let(:invalid_program) { FactoryGirl.create(:program, person_name: nil) }
+
+  let(:valid_attributes) { {
+    person_name: "John Doe",
+    one_rm_squat: 100,
+    one_rm_bench_press: 90,
+    one_rm_deadlift: 80,
+    one_rm_overhead_press: 70,
+    "start_date(1i)": 2016,
+    "start_date(2i)": 9,
+    "start_date(3i)": 3,
+  } }
+
+  let(:invalid_attributes) { {
+    person_name: "John Doe",
+    one_rm_squat: 100,
+    one_rm_bench_press: 90,
+    one_rm_deadlift: 80,
+    "start_date(1i)": 2016,
+    "start_date(2i)": 9,
+    "start_date(3i)": 3,
+
+  } }
 
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "assigns all programs as @programs" do
-      program = Program.create! valid_attributes
+      program
       get :index
       expect(assigns(:programs)).to eq([program])
+    end
+
+    it "renders the :index view" do
+      get :index
+      expect(response).to render_template :index
     end
   end
 
   describe "GET #show" do
+    before { program.initialize_cycle }
     it "assigns the requested program as @program" do
-      program = Program.create! valid_attributes
-      get :show, params: {id: program.to_param}, session: valid_session
+      get :show, params: {id: program.id}
       expect(assigns(:program)).to eq(program)
+    end
+
+    it "renders the :show view" do
+      get :show, params: {id: program.id}
+      expect(response).to render_template :show
     end
   end
 
   describe "GET #new" do
     it "assigns a new program as @program" do
-      get :new, params: {}, session: valid_session
+      get :new, params: {}
       expect(assigns(:program)).to be_a_new(Program)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested program as @program" do
-      program = Program.create! valid_attributes
-      get :edit, params: {id: program.to_param}, session: valid_session
-      expect(assigns(:program)).to eq(program)
     end
   end
 
@@ -42,12 +67,12 @@ RSpec.describe ProgramsController, type: :controller do
     context "with valid params" do
       it "creates a new Program" do
         expect {
-          post :create, params: {program: valid_attributes}, session: valid_session
+          post :create, params: {program: valid_attributes}
         }.to change(Program, :count).by(1)
       end
 
       it "assigns a newly created program as @program" do
-        post :create, params: {program: valid_attributes}, session: valid_session
+        post :create, params: {program: valid_attributes}
         expect(assigns(:program)).to be_a(Program)
         expect(assigns(:program)).to be_persisted
       end
@@ -59,11 +84,6 @@ RSpec.describe ProgramsController, type: :controller do
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved program as @program" do
-        post :create, params: {program: invalid_attributes}, session: valid_session
-        expect(assigns(:program)).to be_a_new(Program)
-      end
-
       it "re-renders the 'new' template" do
         post :create, params: {program: invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
