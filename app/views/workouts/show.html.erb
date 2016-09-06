@@ -1,0 +1,12 @@
+<div> Workout: <%= @exercise.name %></div>
+
+<table>
+<% @exercise_sets.each do |set| %>
+  <tr>
+    <td><%= set.weight %></td>
+    <td><%= set.reps %></td>
+  </tr>
+<% end %>
+</table>
+
+
