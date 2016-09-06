@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe ProgramsController, type: :controller do
 
   let(:program) { FactoryGirl.create(:program) }
-  let(:program_2) { FactoryGirl.create(:program) }
 
   let(:invalid_program) { FactoryGirl.create(:program, person_name: nil) }
 

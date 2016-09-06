@@ -99,10 +99,10 @@ class ProgramsController < ApplicationController
 
     def group_by_cycle_week(workouts)
       {
-        cw_1: workouts.select { |w| w.cycle_week == 1},
-        cw_2: workouts.select { |w| w.cycle_week == 2},
-        cw_3: workouts.select { |w| w.cycle_week == 3},
-        cw_4: workouts.select { |w| w.cycle_week == 4},
+        "Cycle Week 1": workouts.select { |w| w.cycle_week == 1},
+        "Cycle Week 2": workouts.select { |w| w.cycle_week == 2},
+        "Cycle Week 3": workouts.select { |w| w.cycle_week == 3},
+        "Cycle Week 4": workouts.select { |w| w.cycle_week == 4},
       }    
     end
 end
