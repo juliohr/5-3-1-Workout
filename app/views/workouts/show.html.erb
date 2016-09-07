@@ -9,4 +9,11 @@
 <% end %>
 </table>
 
+<% if @workout.status == 1 %>
+  <%= simple_form_for @workout do |f| %>
+    <%= hidden_field_tag :status, 2 -%>
+    <%= f.button :submit %>
+  <% end %>
+<% end %>
+
 

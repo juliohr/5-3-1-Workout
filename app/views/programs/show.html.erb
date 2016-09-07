@@ -11,6 +11,7 @@
   <% sw.each do |w|%>
   <tr>
     <td> <%= link_to w.name, program_workout_path(@program.id, w.id) %> </td>
+    <td> <%= w.status %></td>
   </tr>
   <% end %>
 <% end %>

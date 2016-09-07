@@ -4,6 +4,7 @@ RSpec.describe Workout, type: :model do
   it { is_expected.to have_many(:exercises) }
   it { is_expected.to have_many(:exercise_workouts) }
   it { is_expected.to belong_to(:cycle) }
+  it { is_expected.to validate_presence_of(:status) }
 
   it "is valid with valid attributes" do
     expect(FactoryGirl.build(:workout)).to be_valid

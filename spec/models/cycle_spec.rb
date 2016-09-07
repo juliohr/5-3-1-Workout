@@ -20,7 +20,9 @@ RSpec.describe Cycle, type: :model do
     before { cycle.initialize_workouts(all_one_rm) }
 
     context "workouts" do
+      pending = 1
       it { expect(cycle.workouts).to_not be_empty }
+      it { expect(cycle.workouts.first.status).to eq(pending) }
 
       context "total" do
         it { expect(cycle.workouts.size).to eq(16) }

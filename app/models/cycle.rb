@@ -10,6 +10,7 @@ class Cycle < ApplicationRecord
         workout = Workout.new()
         workout.name = ex
         workout.cycle_week = week
+        workout.status = 1
         workout.initialize_exercise(ex, select_one_rm(all_one_rm, ex))
         workouts << workout
       end

@@ -14,4 +14,13 @@ RSpec.describe WorkoutsController, type: :controller do
       expect(response).to render_template :show
     end
   end
+
+  describe "PUT #update" do
+    it "updates status" do
+      workout
+      put :update, params: { id: workout.id, status: 2 }
+      workout.reload
+      expect(workout.status).to eq(2)
+    end
+  end
 end
