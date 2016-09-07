@@ -1,6 +1,6 @@
 class Cycle < ApplicationRecord
   validates_presence_of :number
-	has_many :workouts
+	has_many :workouts, dependent: :destroy
 
   def initialize_workouts(all_one_rm)
     cycle_weeks = [1,2,3,4]

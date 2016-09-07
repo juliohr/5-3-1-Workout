@@ -1,5 +1,5 @@
 class Program < ApplicationRecord
-	has_many :cycles
+	has_many :cycles, dependent: :destroy
 	
 	validates_presence_of :person_name,
 	:one_rm_squat,
