@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907144801) do
+ActiveRecord::Schema.define(version: 20160907162252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160907144801) do
     t.datetime "updated_at", null: false
     t.integer  "cycle_id"
     t.integer  "cycle_week"
+    t.integer  "status"
     t.index ["cycle_id"], name: "index_workouts_on_cycle_id", using: :btree
   end
 
