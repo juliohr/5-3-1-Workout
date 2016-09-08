@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Cycle, type: :model do
   it "is valid with valid attributes" do
-    expect(FactoryGirl.build(:cycle)).to be_valid
+    expect(FactoryGirl.create(:cycle)).to be_valid
   end
 
   it "is invalid without required attributes" do

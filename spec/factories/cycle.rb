@@ -1,6 +1,7 @@
 require 'faker'
 FactoryGirl.define do
   factory :cycle do
-    number { Faker::Number.between(1, 10) } 
+    number { Faker::Number.between(1, 10) }
+    program
   end
 end

@@ -1,5 +1,6 @@
 class Cycle < ApplicationRecord
   validates_presence_of :number
+  belongs_to :program
 	has_many :workouts, dependent: :destroy
 
   def initialize_workouts(all_one_rm)
