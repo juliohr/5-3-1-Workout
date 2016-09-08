@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :programs do
-    resources :workouts  
+    resources :cycles do
+      resources :workouts  
+    end
   end
 
   resources :workouts

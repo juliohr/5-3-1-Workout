@@ -10,7 +10,7 @@
   </tr>
   <% sw.each do |w|%>
   <tr>
-    <td> <%= link_to w.name, program_workout_path(@program.id, w.id) %> </td>
+    <td> <%= link_to w.name, program_cycle_workout_path(@program.id, @cycle.id, w.id) %> </td>
     <td> <%= w.status %></td>
   </tr>
   <% end %>
