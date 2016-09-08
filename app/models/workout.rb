@@ -6,8 +6,7 @@ class Workout < ApplicationRecord
   validates_presence_of :cycle_week, :status
 
   def initialize_exercise(exercise_name, one_rm)
-    exercise = Exercise.new()
-    exercise.name = exercise_name
+    exercise = Exercise.new({name: exercise_name})
     exercise.initialize_sets(cycle_week, one_rm)
     exercises << exercise
   end
