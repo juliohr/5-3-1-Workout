@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Cycle, type: :model do
-  it "is valid with valid attributes" do
-    expect(FactoryGirl.create(:cycle)).to be_valid
-  end
 
-  it "is invalid without required attributes" do
-    expect(FactoryGirl.build(:cycle, number: nil)).to be_invalid
-  end
+  let(:cycle) { FactoryGirl.build(:cycle) }
+  
+  it { expect(cycle).to be_valid } 
+
+  it { is_expected.to validate_presence_of(:number) }
+  it { is_expected.to belong_to(:program) }
 
   describe ".initialize_workouts" do
-    let(:cycle) { FactoryGirl.build(:cycle)}
     all_one_rm = {
       one_rm_squat: 100,
       one_rm_bench_press: 90,
@@ -22,7 +21,10 @@ RSpec.describe Cycle, type: :model do
     context "workouts" do
       pending = 1
       it { expect(cycle.workouts).to_not be_empty }
-      it { expect(cycle.workouts.first.status).to eq(pending) }
+
+      context "status" do
+        it { expect(cycle.workouts.first.status).to eq(pending) }
+      end
 
       context "total" do
         it { expect(cycle.workouts.size).to eq(16) }

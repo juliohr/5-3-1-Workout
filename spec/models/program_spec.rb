@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Program, type: :model do
 
-  let (:program) { FactoryGirl.build(:program_with_cycle) }
+  let (:program) { FactoryGirl.build(:program) }
 
   it { is_expected.to validate_presence_of(:cycles) }
   it { is_expected.to validate_presence_of(:one_rm_squat) }
@@ -21,6 +21,9 @@ RSpec.describe Program, type: :model do
       one_rm_deadlift: 70,
       one_rm_overhead_press: 60,
     )}
+
+    before { program.cycles = [] }
+
     before { program.initialize_cycle }
 
     it { expect(program.cycles).to_not be_empty }
