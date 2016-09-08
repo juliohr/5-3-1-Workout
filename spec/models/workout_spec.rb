@@ -1,21 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Workout, type: :model do
+
+  let (:workout) { FactoryGirl.build(:workout) }
+
   it { is_expected.to have_many(:exercises) }
   it { is_expected.to have_many(:exercise_workouts) }
   it { is_expected.to belong_to(:cycle) }
   it { is_expected.to validate_presence_of(:status) }
+  it { is_expected.to validate_presence_of(:cycle_week) }
 
-  it "is valid with valid attributes" do
-    expect(FactoryGirl.build(:workout)).to be_valid
-  end
-
-  it "is invalid without cycle week" do
-    expect(FactoryGirl.build(:workout, cycle_week: nil)).to_not be_valid
-  end
+  it { expect(workout).to be_valid }
 
   describe ".initialize_exercise" do
-    let (:workout) { FactoryGirl.build(:workout, cycle_week: 1) }
     one_rm = 100
     before { workout.initialize_exercise("squat", one_rm) }
 
