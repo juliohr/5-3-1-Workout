@@ -1,21 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Exercise, type: :model do
+  let (:exercise) { FactoryGirl.build(:exercise) }
+
   it { is_expected.to have_many(:workouts) }
   it { is_expected.to have_many(:exercise_workouts) }
   it { is_expected.to have_many(:exercise_sets) }
   
-  it "is valid with valid attributes" do
-    expect(FactoryGirl.build(:exercise)).to be_valid
-  end
+  it { expect(exercise).to be_valid }
   
-  it "is invalid without name" do
-    expect(FactoryGirl.build(:exercise, name: nil)).to_not be_valid
-  end
+  it { is_expected.to validate_presence_of(:name) }
 
   describe ".exercise_sets" do
     context "squat" do
-      let (:exercise) { FactoryGirl.build(:exercise) }
       let (:one_rm) { 100 }
 
       context "cycle_week 1" do
