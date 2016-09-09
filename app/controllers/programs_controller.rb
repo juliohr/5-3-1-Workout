@@ -10,8 +10,7 @@ class ProgramsController < ApplicationController
   # GET /programs/1
   # GET /programs/1.json
   def show
-    @cycle = Cycle.find_by(program_id: params[:id])
-    @workouts = group_by_cycle_week(Workout.where(cycle_id: @cycle.id).all)
+    redirect_to program_cycles_path params[:id]
   end
 
   # GET /programs/new
@@ -95,14 +94,5 @@ class ProgramsController < ApplicationController
         one_rm_overhead_press: raw_params[:one_rm_overhead_press],
         start_date: parsed_date
       }
-    end
-
-    def group_by_cycle_week(workouts)
-      {
-        "Cycle Week 1": workouts.select { |w| w.cycle_week == 1},
-        "Cycle Week 2": workouts.select { |w| w.cycle_week == 2},
-        "Cycle Week 3": workouts.select { |w| w.cycle_week == 3},
-        "Cycle Week 4": workouts.select { |w| w.cycle_week == 4},
-      }    
     end
 end

@@ -1,0 +1,21 @@
+<div>Monstrão: <%= @program.person_name %></div>
+<div>Start Date: <%= @program.start_date %></div>
+
+<div> Cycle: <%= @cycle.number %></div>
+
+<table>
+<% @workouts.each do |cw, sw| %>
+  <tr>
+    <th><%= cw.to_s %></th>
+  </tr>
+  <% sw.each do |w|%>
+  <tr>
+    <td> <%= link_to w.name, program_cycle_workout_path(@program.id, @cycle.id, w.id) %> </td>
+    <td> <%= w.status %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+
+<%= link_to 'Back', program_cycles_path(@program.id) %>
+
