@@ -9,7 +9,7 @@ FactoryGirl.define do
   	one_rm_overhead_press { Faker::Number.between(50, 150) }
   	start_date { Faker::Date.between(2.days.ago, Date.today) }
     after(:build) do |program|
-        program.cycles << FactoryGirl.build(:cycle, program: program)
-    end  
+      program.cycles << FactoryGirl.build(:cycle, program: program)
+    end
   end
 end

@@ -10,6 +10,17 @@
       @workouts = group_by_cycle_week(Workout.where(cycle_id: @cycle.id).all)
     end
 
+    def create
+      @program = Program.find(params[:program_id])
+      @program.initialize_new_cycle
+
+      if @program.save
+        redirect_to :index, notice: 'Program was successfully created.'
+      else
+        render :index
+      end
+    end
+
     private
 
     def group_by_cycle_week(workouts)
