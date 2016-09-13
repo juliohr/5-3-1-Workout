@@ -1,5 +1,7 @@
   class CyclesController < ApplicationController
 
+    ATTRIBUTES_TO_INCLUDE = ["one_rm_squat", "one_rm_bench_press", "one_rm_deadlift", "one_rm_overhead_press"]
+
     def index
       @cycles = Cycle.where(program_id: params[:program_id]).all
     end
@@ -12,12 +14,16 @@
 
     def create
       @program = Program.find(params[:program_id])
-      @program.initialize_new_cycle
+      @cycle = Cycle.new({ number: @program.cycles.size + 1 })
+      increment_program_one_rms
+      @cycle.initialize_workouts(program_filtered_attributes)
+      @program.cycles << @cycle
+      @workouts = group_by_cycle_week(@cycle.workouts)
 
       if @program.save
-        redirect_to :index, notice: 'Program was successfully created.'
+        render :show, status: :created, notice: 'Cycle was successfully created.'
       else
-        render :index
+        render :index, notice: 'Cycle could not be created'
       end
     end
 
@@ -30,5 +36,16 @@
         "Cycle Week 3": workouts.select { |w| w.cycle_week == 3},
         "Cycle Week 4": workouts.select { |w| w.cycle_week == 4},
       }    
+    end
+
+    def increment_program_one_rms
+      @program.one_rm_squat += 5
+      @program.one_rm_bench_press += 2.5
+      @program.one_rm_deadlift += 5
+      @program.one_rm_overhead_press += 2.5
+    end
+
+    def program_filtered_attributes
+      @program.attributes.keep_if { |k,v| ATTRIBUTES_TO_INCLUDE.include?(k) }
     end
 end
