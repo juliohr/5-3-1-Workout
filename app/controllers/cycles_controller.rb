@@ -1,4 +1,5 @@
   class CyclesController < ApplicationController
+    before_action :require_user
 
     ATTRIBUTES_TO_INCLUDE = ["one_rm_squat", "one_rm_bench_press", "one_rm_deadlift", "one_rm_overhead_press"]
 

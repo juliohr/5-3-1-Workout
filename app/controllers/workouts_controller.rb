@@ -1,4 +1,5 @@
 class WorkoutsController < ApplicationController
+  before_action :require_user
 
   def show
     @workout = Workout.find(params[:id])
