@@ -28,6 +28,7 @@ class ProgramsController < ApplicationController
   def create 
     @program = Program.new(get_program_params)
     @program.initialize_cycle
+    @program.user_id = current_user.id
     
     if @program.save
       redirect_to @program, notice: 'Program was successfully created.'
@@ -69,7 +70,6 @@ class ProgramsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def get_program_params
       raw_params = params.fetch(:program).permit(
-        :person_name,
         "start_date(1i)",
         "start_date(2i)",
         "start_date(3i)",
@@ -88,7 +88,6 @@ class ProgramsController < ApplicationController
         raw_params["start_date(3i)"].to_i
       )
       program = { 
-        person_name: raw_params[:person_name],
         one_rm_squat: raw_params[:one_rm_squat],
         one_rm_bench_press: raw_params[:one_rm_bench_press],
         one_rm_deadlift: raw_params[:one_rm_deadlift],

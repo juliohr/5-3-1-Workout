@@ -6,7 +6,6 @@ RSpec.describe ProgramsController, type: :controller do
   let(:invalid_program) { FactoryGirl.create(:program, person_name: nil) }
 
   let(:valid_attributes) { {
-    person_name: "John Doe",
     one_rm_squat: 100,
     one_rm_bench_press: 90,
     one_rm_deadlift: 80,
@@ -17,7 +16,6 @@ RSpec.describe ProgramsController, type: :controller do
   } }
 
   let(:invalid_attributes) { {
-    person_name: "John Doe",
     one_rm_squat: 100,
     one_rm_bench_press: 90,
     one_rm_deadlift: 80,
