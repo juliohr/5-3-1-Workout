@@ -4,6 +4,7 @@ RSpec.describe Program, type: :model do
 
   let (:program) { FactoryGirl.build(:program) }
 
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to validate_presence_of(:cycles) }
   it { is_expected.to validate_presence_of(:one_rm_squat) }
   it { is_expected.to validate_presence_of(:one_rm_bench_press) }
