@@ -5,13 +5,17 @@ class ProgramsController < ApplicationController
   # GET /programs
   # GET /programs.json
   def index
-    @programs = Program.all
+    @programs = current_user.programs
   end
 
   # GET /programs/1
   # GET /programs/1.json
   def show
-    redirect_to program_cycles_path params[:id]
+    if current_user == Program.find(params[:id]).user
+      redirect_to program_cycles_path params[:id]
+    else
+      redirect_to programs_path
+    end
   end
 
   # GET /programs/new
@@ -26,9 +30,8 @@ class ProgramsController < ApplicationController
   # POST /programs
   # POST /programs.json
   def create 
-    @program = Program.new(get_program_params)
+    @program = current_user.programs.new(get_program_params)
     @program.initialize_cycle
-    @program.user_id = current_user.id
     
     if @program.save
       redirect_to @program, notice: 'Program was successfully created.'
