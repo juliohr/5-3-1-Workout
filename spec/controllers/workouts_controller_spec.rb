@@ -1,17 +1,20 @@
 require 'rails_helper'
 RSpec.describe WorkoutsController, type: :controller do
 
-  let(:workout) { FactoryGirl.create(:workout) }
+  let(:program) { FactoryGirl.create(:program)}
+  let(:workout) { FactoryGirl.create(:workout, :with_exercise) }
+
+  before { controller.session[:user_id] = program.user.id }
 
   describe "GET #show" do
-    it "assigns the requested workout as @workout" do
-      get :show, params: { id: workout.id }
-      expect(assigns(:workout)).to eq(workout)
-    end
+    before { get :show, params: { id: workout.id, program_id: program.id } }
+    
+    it { expect(assigns(:workout)).to eq(workout) }
+    it { expect(response).to render_template :show }
 
-    it "renders the :show view" do
-      get :show, params: { id: workout.id }
-      expect(response).to render_template :show
+    context "when workout does not belong to user program" do
+        before { get :show, params: { id: workout.id, program_id: (program.id + 1) } }
+        it { expect(response).to redirect_to '/' }
     end
   end
 
