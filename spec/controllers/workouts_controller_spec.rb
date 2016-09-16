@@ -1,16 +1,22 @@
 require 'rails_helper'
 RSpec.describe WorkoutsController, type: :controller do
 
-  let(:workout) { FactoryGirl.create(:workout) }
+  let(:program) { FactoryGirl.create(:program)}
+  let(:workout) { FactoryGirl.create(:workout, :with_exercise) }
+
+  before do
+    controller.session[:user_id] = program.user.id 
+    allow(ExerciseSet).to receive_message_chain(:where, :all)
+  end
 
   describe "GET #show" do
     it "assigns the requested workout as @workout" do
-      get :show, params: { id: workout.id }
+      get :show, params: { id: workout.id, program_id: program.id }
       expect(assigns(:workout)).to eq(workout)
     end
 
-    it "renders the :show view" do
-      get :show, params: { id: workout.id }
+    it "renders the #show view" do
+      get :show, params: { id: workout.id, program_id: program.id }
       expect(response).to render_template :show
     end
   end
