@@ -4,13 +4,21 @@
     ATTRIBUTES_TO_INCLUDE = ["one_rm_squat", "one_rm_bench_press", "one_rm_deadlift", "one_rm_overhead_press"]
 
     def index
-      @cycles = Cycle.where(program_id: params[:program_id]).all
+      if current_user == Program.find(params[:program_id]).user
+        @cycles = Cycle.where(program_id: params[:program_id]).all
+      else
+        redirect_to '/'
+      end
     end
 
     def show
-      @cycle = Cycle.find(params[:id])
-      @program = Program.find(params[:program_id])
-      @workouts = group_by_cycle_week(Workout.where(cycle_id: @cycle.id).all)
+      if current_user == Program.find(params[:program_id]).user
+        @cycle = Cycle.find(params[:id])
+        @program = Program.find(params[:program_id])
+        @workouts = group_by_cycle_week(Workout.where(cycle_id: @cycle.id).all)
+      else
+        redirect_to programs_path
+      end
     end
 
     def create

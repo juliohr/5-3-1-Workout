@@ -2,8 +2,12 @@ class WorkoutsController < ApplicationController
   before_action :require_user
 
   def show
-    @workout = Workout.find(params[:id])
-    @exercise_sets = ExerciseSet.where(exercise_id: @workout.exercises.first.id).all
+    if current_user == Program.find(params[:program_id]).user
+      @workout = Workout.find(params[:id])
+      @exercise_sets = ExerciseSet.where(exercise_id: @workout.exercises.first.id).all
+    else
+      redirect_to '/'
+    end
   end
 
   def update
