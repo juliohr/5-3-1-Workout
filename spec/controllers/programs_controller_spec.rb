@@ -59,11 +59,16 @@ RSpec.describe ProgramsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       before { post :create, params: { program: valid_attributes }, session: valid_session }
-      it { expect(assigns(:programs).count).to eq(1)}
 
       it { expect(assigns(:program)).to be_a(Program) }
       it { expect(assigns(:program)).to be_persisted }
       it { expect(response).to redirect_to(Program.last) }
+
+
+      it { 
+        get :index, params: { session: session }
+        expect(assigns(:programs).count).to eq(2)
+      }
     end
 
     context "with invalid params" do
