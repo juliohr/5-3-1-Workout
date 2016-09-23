@@ -76,4 +76,19 @@ RSpec.describe ProgramsController, type: :controller do
       it { expect(response).to render_template("new") }
     end
   end
+
+  describe ".get_program_params" do
+    let(:params) { { program: valid_attributes} }
+    let(:expected_params) { {
+      one_rm_bench_press: "90",
+      one_rm_deadlift: "80",
+      one_rm_overhead_press: "70",
+      one_rm_squat: "100",
+      start_date: Date.new(2016,9,3)
+    } }
+
+    before { get :index, params: params }
+
+    it { expect(controller.send(:get_program_params)).to eq(expected_params) }
+  end
 end
