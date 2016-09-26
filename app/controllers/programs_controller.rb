@@ -34,6 +34,14 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def destroy
+    if Program.destroy(params[:id])
+      redirect_to programs_path, notice: 'Program was successfully deleted'
+    else
+      redirect_to programs_path, notice: 'There was a problem deleting your program'
+    end
+  end
+
   private
     def set_program
       @program = Program.find(params[:id])

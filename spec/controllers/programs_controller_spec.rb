@@ -63,6 +63,7 @@ RSpec.describe ProgramsController, type: :controller do
       it { expect(assigns(:program)).to be_a(Program) }
       it { expect(assigns(:program)).to be_persisted }
       it { expect(response).to redirect_to(Program.last) }
+      it { expect(flash[:notice]).to eq('Program was successfully created.') }
 
 
       it { 
@@ -72,9 +73,23 @@ RSpec.describe ProgramsController, type: :controller do
     end
 
     context "with invalid params" do
-      before { post :create, params: {program: invalid_attributes}, session: valid_session }
+      before { post :create, params: { program: invalid_attributes}, session: valid_session }
       it { expect(response).to render_template("new") }
     end
+  end
+
+  describe "POST #delete" do
+    before do
+      program
+      post :destroy, params: { id: program.id }
+    end
+
+    it { is_expected.to redirect_to programs_path }
+    it { is_expected.to respond_with :found }
+    it { expect(flash[:notice]).to eq('Program was successfully deleted') }
+
+    before { get :index }
+    it { expect(assigns(:programs)).to be_empty }
   end
 
   describe ".get_program_params" do
