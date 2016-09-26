@@ -4,7 +4,7 @@ class WorkoutsController < ApplicationController
   def show
     if current_user == Program.find(params[:program_id]).user
       @workout = Workout.find(params[:id])
-      @exercise_sets = ExerciseSet.where(exercise_id: @workout.exercises.first.id).all
+      @exercise_sets = ExerciseSet.where(exercise_id: @workout.exercises.first.id).all.reverse
     else
       redirect_to '/'
     end
